@@ -9,7 +9,21 @@
 ![CLAHE MEDIAN](https://user-images.githubusercontent.com/120425774/219521323-53cdf4f9-16bd-412f-8ff5-160d1b7c01ad.jpg)
 
 
+###ROBOCZO
 
+KONFIGURACJA HOTSPOT NA BOOKWORM, DHCP i DNS
+Hot spot - trzeba przełączyć w inny tryb niż 'hotspot' a później znowu na 'hotspot'
+
+DNS i DHCP(do przydzielania adresów)
+Jest "veinfinder.lan" bo inaczej nie działało na windowsie. ".local" nie działa na Apple (stosują własny protokół mDNS).
+Wydaje się, że działa na Apple jeśli wpisujemy dokładnie "http://veinfinder.lan" a na Windows "http://veinfinder.local"
+
+Dodanie Crontab
+crontab:
+sudo crontab -e
+@reboot sleep 5 && /usr/bin/python3 /home/veinfinder/PycharmProjects/VeinVision/app.py
+
+###ROBOCZO
 
 https://github.com/maxyymmm/Vein-Finder-NIR-Near-Infrared-VF-PL-ENG-/assets/120425774/4b405bb3-9b30-4646-a2db-f1ee870b35a8
 
