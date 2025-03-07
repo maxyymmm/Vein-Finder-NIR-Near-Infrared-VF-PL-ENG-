@@ -13,24 +13,25 @@ class ParamSetter:
         self.clahe_clip_limit = self.DEFAULT_PARAMS["cliplimit_value"]
         self.clahe_tile_grid_size = self.DEFAULT_PARAMS["tilegrid_value"]
         self.camera_resolution = tuple(map(int, self.DEFAULT_PARAMS["resolution"].split('x')))
+        logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
     def load_default_params_from_file(self):
         """Load default parameters from a JSON file."""
         if os.path.exists(self.DEFAULT_CONFIG_FILE_PATH):
             with open(self.DEFAULT_CONFIG_FILE_PATH, "r") as config_file:
                 default_params = json.load(config_file)
-                logging.debug(f"Default parameters loaded from {self.DEFAULT_CONFIG_FILE_PATH}")
+                logging.info(f"Default parameters loaded from {self.DEFAULT_CONFIG_FILE_PATH}")
                 return default_params
         else:
             default_params = {
                 "for_value": 2,
                 "cliplimit_value": 2.5,
                 "tilegrid_value": 8,
-                "resolution": "640x480"
+                "resolution": "1280x720"
             }
             with open(self.DEFAULT_CONFIG_FILE_PATH, "w") as config_file:
                 json.dump(default_params, config_file)
-            logging.debug(f"Default parameters created in {self.DEFAULT_CONFIG_FILE_PATH}")
+            logging.info(f"Default parameters created in {self.DEFAULT_CONFIG_FILE_PATH}")
             return default_params
 
     def save_params_to_file(self):
@@ -43,7 +44,7 @@ class ParamSetter:
         }
         with open(self.CONFIG_FILE_PATH, "w") as config_file:
             json.dump(params, config_file)
-        logging.debug(f"Parameters saved to {self.CONFIG_FILE_PATH}")
+        logging.info(f"Parameters saved to {self.CONFIG_FILE_PATH}")
 
     def load_params_from_file(self):
         """Load parameters from a JSON file or fallback to default."""
@@ -55,9 +56,9 @@ class ParamSetter:
                 self.clahe_tile_grid_size = params.get("tilegrid_value", self.DEFAULT_PARAMS["tilegrid_value"])
                 resolution_str = params.get("resolution", self.DEFAULT_PARAMS["resolution"])
                 self.camera_resolution = tuple(map(int, resolution_str.split("x")))
-                logging.debug(f"Parameters loaded from {self.CONFIG_FILE_PATH}")
+                logging.info(f"Parameters loaded from {self.CONFIG_FILE_PATH}")
         else:
-            logging.debug(f"No config file found, loading default parameters.")
+            logging.warning(f"No config file found, loading default parameters.")
             self.clahe_for_value = self.DEFAULT_PARAMS["for_value"]
             self.clahe_clip_limit = self.DEFAULT_PARAMS["cliplimit_value"]
             self.clahe_tile_grid_size = self.DEFAULT_PARAMS["tilegrid_value"]
