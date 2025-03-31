@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Viewport meta tag for responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Camera Stream with CLAHE Control and Fullscreen</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* Adjusted height to accommodate fullscreen simulation */
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .video-container {
+            position: relative;
+            background-color: #000;
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+        }
+
+        #stream {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        #fullscreen-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 10;
+            border-radius: 5px;
+        }
+
+        #fullscreen-btn:hover {
+            background-color: #555;
+        }
+
+        .controls {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+
+        .slider-container {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        input[type=range] {
+            width: 60%;
+        }
+
+        label {
+            flex: 1;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .button-container {
+            margin-top: 0px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .button-container button {
+	        margin: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .button-container button:hover {
+            background-color: #555;
+        }
+
+        /* Adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .controls, .button-container {
+                width: 90%;
+            }
+
+            label {
+                font-size: 12px;
+            }
+
+            input[type=range] {
+                width: 70%;
+            }
+
+            .button-container button {
+                font-size: 12px;
+                padding: 8px 15px;
+            }
+
+            #fullscreen-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Styles to simulate fullscreen on mobile devices */
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 9999;
+        }
+
+        .fullscreen #stream {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .fullscreen #fullscreen-btn {
+            top: 10px;
+            right: 10px;
+        }
+
+        .fullscreen .controls,
+        .fullscreen .button-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container" id="video-container">
+        <button id="fullscreen-btn">Fullscreen</button>
+        <img id="stream" src="{{ url_for('video_feed') }}" alt="Video Stream">
+    </div>
+
+    <div class="controls">
+        <div class="slider-container">
+            <label for="for_value">Number of Iterations (for loop):</label>
+            <input type="range" id="for_value" value="2" min="1" max="10" step="1">
+            <span id="for_value_display">2</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="cliplimit_value">Clip Limit:</label>
+            <input type="range" id="cliplimit_value" value="2.5" min="0.1" max="10" step="0.1">
+            <span id="cliplimit_value_display">2.5</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="tilegrid_value">Tile Grid Size:</label>
+            <input type="range" id="tilegrid_value" value="8" min="1" max="32" step="1">
+            <span id="tilegrid_value_display">8</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="resolution">Resolution:</label>
+            <select id="resolution">
+                <option value="640x480" selected>640x480</option>
+                <option value="800x600">800x600</option>
+                <option value="1280x720">1280x720</option>
+                <option value="1920x1080">1920x1080</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button id="save-btn">Save Parameters</button>
+        <button id="load-btn">Load Parameters</button>
+        <button id="default-btn">Load Default Parameters</button>
+    </div>
+
+    <script>
+        // Function to check if the device is a mobile device
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || navigator.userAgent.indexOf('IEMobile') !== -1;
+        }
+
+        // Fullscreen toggle function
+        function toggleFullscreen() {
+            const videoContainer = document.getElementById('video-container');
+
+            if (isMobileDevice()) {
+                // On mobile devices, simulate fullscreen with CSS
+                videoContainer.classList.toggle('fullscreen');
+            } else if (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled) {
+                // Use the Fullscreen API on supported devices
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+                    // Enter fullscreen
+                    if (videoContainer.requestFullscreen) {
+                        videoContainer.requestFullscreen();
+                    } else if (videoContainer.webkitRequestFullscreen) {
+                        videoContainer.webkitRequestFullscreen();
+                    } else if (videoContainer.mozRequestFullScreen) {
+                        videoContainer.mozRequestFullScreen();
+                    } else if (videoContainer.msRequestFullscreen) {
+                        videoContainer.msRequestFullscreen();
+                    }
+                } else {
+                    // Exit fullscreen
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                }
+            } else {
+                // Fallback for devices without Fullscreen API
+                videoContainer.classList.toggle('fullscreen');
+            }
+        }
+
+        // Attach fullscreen toggle function to the button
+        document.getElementById('fullscreen-btn').addEventListener('click', toggleFullscreen);
+
+        // Fetch current parameters from the backend and update the sliders
+        function loadCurrentParams() {
+            fetch('/load_params', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the slider values and displays with the fetched data
+                document.getElementById('for_value').value = data.for_value;
+                document.getElementById('for_value_display').textContent = data.for_value;
+
+                document.getElementById('cliplimit_value').value = data.cliplimit_value;
+                document.getElementById('cliplimit_value_display').textContent = data.cliplimit_value;
+
+                document.getElementById('tilegrid_value').value = data.tilegrid_value;
+                document.getElementById('tilegrid_value_display').textContent = data.tilegrid_value;
+
+                document.getElementById('resolution').value = data.resolution;
+            });
+        }
+
+        // Call the loadCurrentParams function when the page loads
+        window.onload = function() {
+            loadCurrentParams();
+            updateSliderDisplays();
+        };
+
+        // Function to send updated values to the backend
+        function sendUpdate() {
+            const forValue = document.getElementById('for_value').value;
+            const clipLimit = document.getElementById('cliplimit_value').value;
+            const tileGridSize = document.getElementById('tilegrid_value').value;
+            const resolution = document.getElementById('resolution').value;
+
+            fetch('/update_clahe_params', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    for_value: forValue,
+                    cliplimit_value: clipLimit,
+                    tilegrid_value: tileGridSize,
+                    resolution: resolution
+                })
+            }).then(response => {
+                if (!response.ok) {
+                    console.error('Failed to update parameters.');
+                }
+            });
+        }
+
+        // Update the displayed values of sliders
+        function updateSliderDisplays() {
+            document.getElementById('for_value_display').textContent = document.getElementById('for_value').value;
+            document.getElementById('cliplimit_value_display').textContent = document.getElementById('cliplimit_value').value;
+            document.getElementById('tilegrid_value_display').textContent = document.getElementById('tilegrid_value').value;
+        }
+
+        // Automatically update sliders
+        document.getElementById('for_value').addEventListener('input', function() {
+            updateSliderDisplays();
+            sendUpdate();
+        });
+
+        document.getElementById('cliplimit_value').addEventListener('input', function() {
+            updateSliderDisplays();
+            sendUpdate();
+        });
+
+        document.getElementById('tilegrid_value').addEventListener('input', function() {
+            updateSliderDisplays();
+            sendUpdate();
+        });
+
+        document.getElementById('resolution').addEventListener('change', function() {
+            sendUpdate();
+        });
+
+        // Save button functionality
+        document.getElementById('save-btn').addEventListener('click', function() {
+            fetch('/save_params', {
+                method: 'POST'
+            }).then(response => {
+                if (!response.ok) {
+                    console.error('Failed to save parameters.');
+                }
+            });
+        });
+
+        // Load saved parameters
+        document.getElementById('load-btn').addEventListener('click', function() {
+            loadCurrentParams(); // Reuse the loadCurrentParams function to refresh sliders
+        });
+
+        // Load default parameters button
+        document.getElementById('default-btn').addEventListener('click', function() {
+            fetch('/load_default_params', {
+                method: 'POST'
+            }).then(response => response.json())
+            .then(data => {
+                // Update the sliders with default parameters
+                document.getElementById('for_value').value = data.for_value;
+                document.getElementById('for_value_display').textContent = data.for_value;
+
+                document.getElementById('cliplimit_value').value = data.cliplimit_value;
+                document.getElementById('cliplimit_value_display').textContent = data.cliplimit_value;
+
+                document.getElementById('tilegrid_value').value = data.tilegrid_value;
+                document.getElementById('tilegrid_value_display').textContent = data.tilegrid_value;
+
+                document.getElementById('resolution').value = data.resolution;
+                updateSliderDisplays();
+                sendUpdate();
+            });
+        });
+
+        // Update slider displays based on current values
+        updateSliderDisplays();
+    </script>
+</body>
+</html>
