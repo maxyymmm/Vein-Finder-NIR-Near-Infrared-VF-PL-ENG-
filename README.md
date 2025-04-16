@@ -1,6 +1,6 @@
 # ENG BELOW! <br> <br>
-# Skaner Żył NIR (Near-Infrared)  (VF)
-### WYNIKI
+# 🔬 Skaner Żył NIR (Near-Infrared)  (VF)
+### 📊 WYNIKI
 #### Obraz zarejestrowany przez kamere NoIR
 ![ori](https://user-images.githubusercontent.com/120425774/219521156-9f1e4441-8b21-4a45-9fe9-f68e8397a692.jpg)
 #### CLAHE
@@ -14,16 +14,16 @@ https://github.com/user-attachments/assets/bc7ac4bf-a98d-4c4a-9d43-718a29301329
 
 https://github.com/user-attachments/assets/aef5d5cf-615a-48e7-bf75-2db40421cf0e
 
-#### Widok w aplikacji
+#### 📱 Widok w aplikacji
 ![app10000](https://github.com/user-attachments/assets/ecc1131b-3af2-4c46-a15d-ad3759651756)
-## Parametry sterowalne z aplikacji:
-+ **Liczba iteracji (for_value)** – Określa, ile razy poprawa kontrastu (CLAHE) jest stosowana. Więcej iteracji może zwiększyć widoczność żył, ale może też dodać szumy, a także znacznie spowolnić pracę urządzenia
+## 🎛️ Parametry sterowalne z aplikacji:
++ 🔁 **Liczba iteracji (for_value)** – Określa, ile razy poprawa kontrastu (CLAHE) jest stosowana. Więcej iteracji może zwiększyć widoczność żył, ale może też dodać szumy, a także znacznie spowolnić pracę urządzenia
 
-+ **Limit kontrastu (cliplimit_value)** – Kontroluje, jak mocno wzmacniany jest kontrast. Niższe wartości dają delikatniejsze efekty, wyższe mogą uwypuklić żyły, ale czasem pogarszają jakość obrazu.
++ 🌗 **Limit kontrastu (cliplimit_value)** – Kontroluje, jak mocno wzmacniany jest kontrast. Niższe wartości dają delikatniejsze efekty, wyższe mogą uwypuklić żyły, ale czasem pogarszają jakość obrazu.
 
-+ **Rozmiar siatki (tilegrid_value)** – Decyduje, na jak małe fragmenty dzielony jest obraz przy poprawie kontrastu. Większa siatka oznacza bardziej lokalne dostosowanie kontrastu.
++ 🔳 **Rozmiar siatki (tilegrid_value)** – Decyduje, na jak małe fragmenty dzielony jest obraz przy poprawie kontrastu. Większa siatka oznacza bardziej lokalne dostosowanie kontrastu.
 
-+ **Rozdzielczość (resolution)** – Ustawia rozdzielczość kamery.
++ 🔎 **Rozdzielczość (resolution)** – Ustawia rozdzielczość kamery.
 
 ![IMG_7726](https://github.com/user-attachments/assets/3f088ef8-7a82-422d-8c78-68bf12235169)
 ![IMG_7730](https://github.com/user-attachments/assets/8aa85288-94c9-4dd6-9bdb-b27701fad189)
@@ -33,64 +33,64 @@ https://github.com/user-attachments/assets/aef5d5cf-615a-48e7-bf75-2db40421cf0e
 ![IMG_7716](https://github.com/user-attachments/assets/b6fc7786-ab9b-4a2d-bd0a-7e5b0bd06321)
 ![IMG_7721](https://github.com/user-attachments/assets/db448214-35a1-4b2d-b4e5-6029c48046ae)
 
-### Cel?
+### 🎯 Cel?
 Celem tego projektu było stworzenie **przenośnego urządzenia do wizualizacji żył podskórnych w czasie rzeczywistym**, który będzie dostępny za znacznie niższą cenę niż obecnie dostępne profesjonalne urządzenia tego typu, których ceny zaczynają się od **3000$**. **Wykorzystano gotowe i łatwo dostępne do kupienia komponenty, aby zapewnić rozwiązanie jak najbardziej ekonomiczne i stosunkowo proste do samodzielnego złożenia.**
-### Po co to wszystko?
+### ❓ Po co to wszystko?
 Istnieją grupy chorych, dla których regularne przyjmowanie leków dożylnie (co 2/3 dni) stanowi konieczność, np. w przypadku chorób układu krzepnięcia. **Skaner żył jest narzędziem, które pomaga zminimalizować liczbę koniecznych wkłuć**, dzięki czemu można zmniejszyć niepotrzebny stres i ból dla pacjenta oraz zminimalizować liczbę prób, co jest szczególnie ważne w przypadku niemowląt i dzieci.
-### Jak to działa?
+### ⚙️ Jak to działa?
 
 ![new_scheme](https://github.com/user-attachments/assets/0341a5ab-ce8c-4a20-8f41-206fefdd04e3)
 
 
 
-**Skaner żył** to urządzenie, które wykorzystuje technologię **bliskiej podczerwieni _(NIR, ang. Near-InfraRed)_**, aby zobrazować żyły ukryte pod skórą pacjenta. 
+🔬 **Skaner żył** to urządzenie, które wykorzystuje technologię **bliskiej podczerwieni _(NIR, ang. Near-InfraRed)_**, aby zobrazować żyły ukryte pod skórą pacjenta. 
 Skaner żył działa w sposób następujący: urządzenie emituje bezpieczne dla organizmu fale podczerwone o długości fal w zakresie **700nm-1000nm _(w tym przypadku 850nm)_**, które przenikają przez skórę pacjenta. W momencie, gdy fale podczerwone trafiają na żyłę, zostają częściowo pochłonięte przez krew, a otaczające tkanki odbijają światło z powrotem. **_Zastosowanie kilku diod o różnych długościach fali może dać nieznacznie lepsze rezultaty, jednak nie ma gotowych układów pozwalających na taką funkcjonalność. Zbudowanie takiego skanera wymagałoby lutowania, stosowania oddzielnych źródeł napięcia i byłoby bardziej skomplikowane. Celem tego projektu było stworzenie stosunkowo prostego urządzenia, które spełnia swoje podstawowe funkcje w bezpieczny i skuteczny sposób._** <br>
 W ten sposób kamera pozbawiona filtra **IR _(NoIR camera = No Infrared filter camera)_** rejestruje obraz, który następnie jest przetwarzany przez algorytm **CLAHE _(ang. Contrast Limited Adaptive Histogram Equalization)_** w celu podwyższenia kontrastu. 
 Proces przetwarzania obejmuje następujące kroki: <br>
-**1)** Konwersja obrazu do przestrzeni **barw LAB**.<br>
-**2)** Zastosowanie **CLAHE** na kanale **L** **_(jasność)_**.<br>
-**3)** Połączenie kanałów **LAB** z powrotem do obrazu **BGR**.<br>
-**4)** Na obraz nakładany jest **filtr** **_(Median Filter)_**.<br>
+1️⃣ Konwersja obrazu do przestrzeni **barw LAB**.<br>
+2️⃣ Zastosowanie **CLAHE** na kanale **L** **_(jasność)_**.<br>
+3️⃣ Połączenie kanałów **LAB** z powrotem do obrazu **BGR**.<br>
+4️⃣ Na obraz nakładany jest **filtr** **_(Median Filter)_**.<br>
 Po przetworzeniu obrazu, jest on wysyłany na lokalny serwer **Flask** działający na urządzeniu. Aby zobaczyć strumień wideo ze skanera żył na innym urządzeniu, należy podłączyć się do hotspotu lokalnego Raspberry Pi. Następnie w przeglądarce internetowej wpisać **"veinfinder.local"** lub **"veinfinder.lan"** , ponieważ jest ustawiony **DNS**. Czasami jednak nie działa on w niektórych przeglądarkach – w takim przypadku należy wpisać adres IP Raspberry Pi: **"http://192.168.1.254/"** lub **"http://192.168.1.254:80"**
 Urządzenie zostało wyposażone w baterię o pojemności **3000mah**, która pozwala na kilkanaście minut pracy.
 
-### Sprzęt
-**-Raspberry pi 4B 4GB**<br>
+### 🛠️ Sprzęt
+💻 **Raspberry pi 4B 4GB**<br>
 ![raspberry](https://user-images.githubusercontent.com/120425774/219519043-36ef3765-eb90-4844-9529-c078ed58def6.jpg)<br>
-**-Kamera OdSeven Camera HD IR-CUT OV5647 5Mpx + moduły IR (850nm)** <br>
+📸 **Kamera OdSeven Camera HD IR-CUT OV5647 5Mpx + moduły IR (850nm)** <br>
 ![kamera](https://user-images.githubusercontent.com/120425774/219519215-5b22be91-8f97-4141-aab5-ef4c1bae8114.jpg)<br>
-**-WaveShare Li-polymer Battery HAT** <br>
+🔋 **WaveShare Li-polymer Battery HAT** <br>
 ![bateria](https://github.com/maxyymmm/Vein-Finder-NIR-Near-Infrared-VF-PL-ENG-/assets/120425774/1bdd070a-82a8-4d7a-826d-7218819fd7f9)<br>
-**-Karta microSD** <br>
+💾 **Karta microSD** <br>
 ![karta](https://github.com/maxyymmm/Vein-Finder-NIR-Near-Infrared-VF-PL-ENG-/assets/120425774/bd93f27c-4dbc-4471-b82e-a97724ddabe4)<br>
-**-Obudowa** _(zaprojektowana w Fusion, należy wysłać pliki **.stl** do wydruku 3d)_ <br>
+📦 **Obudowa** _(zaprojektowana w Fusion, należy wysłać pliki **.stl** do wydruku 3d)_ <br>
 
 ![fusion](https://github.com/user-attachments/assets/c3558dc1-5762-4d31-82d8-f50b1b0a34e0)
 ![cura](https://github.com/user-attachments/assets/10707d7a-b9f7-40d5-baee-bcaf4782ca82)
 
-### Koszty:
--Raspberry Pi 4B 4GB - **280 PLN** <br>
--Kamera OdSeven Camera HD IR-CUT OV5647 5Mpx + moduły IR (850nm) - **100 PLN** <br>
--WaveShare Li-polymer Battery HAT - **90 PLN** <br>
--Karta microSD - **20 PLN** <br>
--Obudowa - Koszt wydruku ok **100 PLN** <br>
-**RAZEM ok 590 PLN**
+### 💵 Koszty:
+💻 Raspberry Pi 4B 4GB - **280 PLN** <br>
+📸 Kamera OdSeven Camera HD IR-CUT OV5647 5Mpx + moduły IR (850nm) - **100 PLN** <br>
+🔋 WaveShare Li-polymer Battery HAT - **90 PLN** <br>
+💾 Karta microSD - **20 PLN** <br>
+📦 Obudowa - Koszt wydruku ok **100 PLN** <br>
+   **RAZEM ok 590 PLN**
 
-### Wymagania
+### 📋 Wymagania
 + Raspberry Pi z zainstalowanym **Raspberry Pi OS (Legacy) 64-bit, 11 (bullseye), Kernel version: 6.1, Release date: October 22nd 2024**.
 
 + **Python** w wersji **3.9.2**.
 
-### Konfiguracja Raspberry Pi
-**1)** Pobranie plików z repozytorium na raspberry pi <br>
-**2)** Instalacja potrzebnych bibliotek z pliku _**requirements.txt**_
+### 🛠️ Konfiguracja Raspberry Pi
+1️⃣ Pobranie plików z repozytorium na raspberry pi <br>
+2️⃣ Instalacja potrzebnych bibliotek z pliku _**requirements.txt**_
 
 Należy przejść do katalogu z pobranymi plikami i wpisać poniższą komendę: 
 ```console
 veinfinder@veinfinder:~$ pip install -r requirements.txt
 ```
 
-**3)** Utworzenie hotspotu **Wifi** + **DNS**
+3️⃣ Utworzenie hotspotu **Wifi** + **DNS**
 ```console
 veinfinder@veinfinder:~$ sudo apt update
 veinfinder@veinfinder:~$ sudo apt install hostapd dnsmasq
@@ -174,7 +174,7 @@ Powinna wyświetlić się podobna odpowiedź ze statusem **"active"**
 ![hostapdStatus2](https://github.com/user-attachments/assets/a3b2d7cb-4f9b-4fca-a00b-b7eeea2c8ef3)
 
 
-**4)** Ustawienie automatycznego włączania programu przy starcie urządzenia _**app.py**_
+4️⃣ Ustawienie automatycznego włączania programu przy starcie urządzenia _**app.py**_
 ```console
 veinfinder@veinfinder:~$ sudo nano /etc/rc.local
 ```
@@ -190,7 +190,7 @@ sudo python3 /home/veinfinder/Desktop/Veinfinder/app.py &
 ```
 ![rclocal2](https://github.com/user-attachments/assets/f5397edf-acf6-47d1-87d5-9f204c1c0271)
 
-**5)** Dla uzyskania lepszej wydajności można wyłączyć bluetooth oraz włączyć tryb konsolowy
+5️⃣ Dla uzyskania lepszej wydajności można wyłączyć bluetooth oraz włączyć tryb konsolowy
 
 *Wyłączenie bluetooth*
 ```console
@@ -215,16 +215,16 @@ _*"System Options -> Boot / Auto Login Select boot... -> Console Autologin..."*_
 ![raspiconfig3](https://github.com/user-attachments/assets/e6f04bad-6b5e-4bc2-b5cc-6d20fed2e34d)
 ![raspiconfig4](https://github.com/user-attachments/assets/fbb8b272-0c7b-4fd4-95ad-99a471cfa3b2)
 
-**GOTOWE!**
+✅ **GOTOWE!**
 
-### Użytkowanie
+### ▶️ Użytkowanie
 Urządzenie włączamy przyciskiem **ON/OFF** <br>
 Urządzenie wyłączamy naciskając dwukrotnie przycisk **ON/OFF** <br>
 Urządzenie można ładować za pomocą **USB TYP C (wspierane szybkie ładowanie)** (5 diod LED wskazuje poziomu naładowania baterii oraz statusu ładowania) <br> <br>
 
 # ENG
-# Vein Finder NIR (Near-Infrared) (VF)
-### RESULTS
+# 🔬 Vein Finder NIR (Near-Infrared) (VF)
+### 📊 RESULTS
 #### Image captured by NoIR camera
 ![ori](https://user-images.githubusercontent.com/120425774/219521156-9f1e4441-8b21-4a45-9fe9-f68e8397a692.jpg)
 #### CLAHE
@@ -240,16 +240,16 @@ https://github.com/user-attachments/assets/bc7ac4bf-a98d-4c4a-9d43-718a29301329
 
 https://github.com/user-attachments/assets/aef5d5cf-615a-48e7-bf75-2db40421cf0e
 
-#### View in the Application
+#### 📱 View in the Application
 ![app10000](https://github.com/user-attachments/assets/ecc1131b-3af2-4c46-a15d-ad3759651756)
-## Parameters Adjustable from the Application:
-+ **Number of Iterations (for_value)** – Controls how many times the CLAHE contrast enhancement process is repeated. More iterations may improve vein visibility but can also add noise and significantly slow down the device.
+## 🎛️ Parameters Adjustable from the Application:
++ 🔁 **Number of Iterations (for_value)** – Controls how many times the CLAHE contrast enhancement process is repeated. More iterations may improve vein visibility but can also add noise and significantly slow down the device.
 
-+ **Contrast Limit (cliplimit_value)** – Controls how strongly the contrast is enhanced. Lower values result in a more subtle contrast enhancement, while higher values can make veins more visible but may also degrade image quality
++ 🌗 **Contrast Limit (cliplimit_value)** – Controls how strongly the contrast is enhanced. Lower values result in a more subtle contrast enhancement, while higher values can make veins more visible but may also degrade image quality
 
-+ **Grid Size (tilegrid_value)** – Defines how small the image is divided into sections for contrast enhancement. A larger grid means more localized contrast adjustments.
++ 🔳 **Grid Size (tilegrid_value)** – Defines how small the image is divided into sections for contrast enhancement. A larger grid means more localized contrast adjustments.
 
-+ **Resolution (resolution)** – Sets the camera resolution.
++ 🔎 **Resolution (resolution)** – Sets the camera resolution.
 
 ![IMG_7726](https://github.com/user-attachments/assets/3f088ef8-7a82-422d-8c78-68bf12235169)
 ![IMG_7730](https://github.com/user-attachments/assets/8aa85288-94c9-4dd6-9bdb-b27701fad189)
@@ -264,63 +264,64 @@ https://github.com/user-attachments/assets/aef5d5cf-615a-48e7-bf75-2db40421cf0e
 
 
 
-### Purpose?
+### 🎯 Purpose?
 The aim of this project was to create a **portable device for visualizing subcutaneous veins in real-time**, which would be available at a much lower cost than currently available professional devices of this type, which start at **$3000**. **Ready-made and easily accessible components were used to provide the most economical and relatively simple solution for self-assembly.**
-### Why all this?
+### ❓ Why all this?
 There are groups of patients for whom regular intravenous drug administration (every 2/3 days) is necessary, e.g., in the case of coagulation system disorders. **Vein finder is a tool that helps minimize the number of necessary punctures**, thus reducing unnecessary stress and pain for the patient and minimizing the number of attempts, which is particularly important for infants and children.
-### How does it work?
+### ⚙️ How does it work?
 ![new_scheme](https://github.com/user-attachments/assets/0341a5ab-ce8c-4a20-8f41-206fefdd04e3)
 
 
-**Vein scanner** is a device that uses **near-infrared technology (NIR)** to visualize veins hidden under the patient's skin. The vein scanner works as follows: the device emits safe infrared waves with wavelengths in the range of **700nm-1000nm _(in this case 850nm)_**, which penetrate the patient's skin. When the infrared waves hit the vein, they are partially absorbed by the blood, and the surrounding tissues reflect the light back. **_The use of several diodes with different wavelengths may give slightly better results, but there are no ready-made circuits that allow for such functionality. Building such a scanner would require soldering, separate voltage sources, and would be more complicated than what has been achieved in this project. The goal of this project was to create a relatively simple device that fulfills its basic functions in a safe and effective way._** <br>
+🔬 **Vein scanner** is a device that uses **near-infrared technology (NIR)** to visualize veins hidden under the patient's skin. The vein scanner works as follows: the device emits safe infrared waves with wavelengths in the range of **700nm-1000nm _(in this case 850nm)_**, which penetrate the patient's skin. When the infrared waves hit the vein, they are partially absorbed by the blood, and the surrounding tissues reflect the light back. **_The use of several diodes with different wavelengths may give slightly better results, but there are no ready-made circuits that allow for such functionality. Building such a scanner would require soldering, separate voltage sources, and would be more complicated than what has been achieved in this project. The goal of this project was to create a relatively simple device that fulfills its basic functions in a safe and effective way._** <br>
 The camera that is devoid of an **IR filter _(NoIR camera = No Infrared filter camera)_**, records the image, which is then processed by the **CLAHE algorithm _(Contrast Limited Adaptive Histogram Equalization)_** to enhance the contrast.
 The processing process involves the following steps: <br>
-**1)** Conversion of the image to the **LAB color space**.<br>
-**2)** Applying **CLAHE** to the **L channel _(Lightness)_**.<br>
-**3)** Merging the **LAB channels** back to the **BGR** image.<br>
-**4)** A **filter (Median Filter)** is applied to the image.<br>
+1️⃣ Conversion of the image to the **LAB color space**.<br>
+2️⃣ Applying **CLAHE** to the **L channel _(Lightness)_**.<br>
+3️⃣ Merging the **LAB channels** back to the **BGR** image.<br>
+4️⃣ A **filter (Median Filter)** is applied to the image.<br>
 After processing the image, it is sent to a local **Flask** server running on the device.  
 To view the video stream from the vein scanner on another device, connect to the Raspberry Pi's local hotspot.  
 Then, open a web browser and enter **"veinfinder.local"** or **"veinfinder.lan"** as the **DNS** is set up.  
 However, it may not work in some browsers – in that case, enter the Raspberry Pi's IP address: **"http://192.168.1.254/"** or **"http://192.168.1.254:80"**  
 
 The device is equipped with a **3000mAh** battery, allowing for several minutes of operation.
-### Hardware
-**-Raspberry Pi 4B 4GB**<br>
+### 🛠️ Hardware
+💻 **Raspberry Pi 4B 4GB**<br>
 ![raspberry](https://user-images.githubusercontent.com/120425774/219519043-36ef3765-eb90-4844-9529-c078ed58def6.jpg)<br>
-**-OdSeven Camera HD IR-CUT OV5647 5Mpx + IR modules (850nm)** <br>
+📸 **OdSeven Camera HD IR-CUT OV5647 5Mpx + IR modules (850nm)** <br>
 ![kamera](https://user-images.githubusercontent.com/120425774/219519215-5b22be91-8f97-4141-aab5-ef4c1bae8114.jpg)<br>
-**-WaveShare Li-polymer Battery HAT** <br>
+🔋 **WaveShare Li-polymer Battery HAT** <br>
 ![bateria](https://github.com/maxyymmm/Vein-Finder-NIR-Near-Infrared-VF-PL-ENG-/assets/120425774/1bdd070a-82a8-4d7a-826d-7218819fd7f9)<br>
-**-MicroSD Card** <br>
+💾 **MicroSD Card** <br>
 ![karta](https://github.com/maxyymmm/Vein-Finder-NIR-Near-Infrared-VF-PL-ENG-/assets/120425774/bd93f27c-4dbc-4471-b82e-a97724ddabe4)<br>
-**-Case** _(designed in Fusion, **.stl** files need to be sent for 3d printing)_ <br>
+📦 **Case** _(designed in Fusion, **.stl** files need to be sent for 3d printing)_ <br>
 ![fusion](https://github.com/user-attachments/assets/c3558dc1-5762-4d31-82d8-f50b1b0a34e0)
 ![cura](https://github.com/user-attachments/assets/10707d7a-b9f7-40d5-baee-bcaf4782ca82)
 
-### Costs:
--Raspberry pi 4B 4GB - **280zł** <br>
--OdSeven Camera HD IR-CUT OV5647 5Mpx + moduły IR (850nm) - **100zł** <br>
--WaveShare Li-polymer Battery HAT - **90zł** <br>
--microSD Card- **20zł** <br>
--Case - 3d printing cost approximately **100zł** <br>
+### 💵 Costs:
+💻 Raspberry pi 4B 4GB - **280zł** <br>
+📸 OdSeven Camera HD IR-CUT OV5647 5Mpx + moduły IR (850nm) - **100zł** <br>
+🔋 WaveShare Li-polymer Battery HAT - **90zł** <br>
+💾 microSD Card- **20zł** <br>
+📦 Case - 3d printing cost approximately **100zł** <br>
 **TOTAL** approximately **590 PLN** ~ **155 USD**
 
-### Requirements
+
+### 📋 Requirements
 + Raspberry Pi with **Raspberry Pi OS (Legacy) 64-bit, 11 (Bullseye), Kernel version: 6.1, Release date: October 22nd, 2024**.
 
 + **Python** version **3.9.2**.
 
-### Raspberry Pi Configuration
-**1)** Downloading files from the repository to Raspberry Pi  
-**2)** Installing required libraries from the _**requirements.txt**_ file
+### 🛠️ Raspberry Pi Configuration
+1️⃣ Downloading files from the repository to Raspberry Pi  
+2️⃣ Installing required libraries from the _**requirements.txt**_ file
 
 You need to navigate to the directory with the downloaded files and enter the following command:
 ```console
 veinfinder@veinfinder:~$ pip install -r requirements.txt
 ```
 
-**3)** Creating a **Wifi Hotspot** + **DNS**
+3️⃣ Creating a **Wifi Hotspot** + **DNS**
 ```console
 veinfinder@veinfinder:~$ sudo apt update
 veinfinder@veinfinder:~$ sudo apt install hostapd dnsmasq
@@ -404,7 +405,7 @@ A similar response should appear with the status **"active"**
 ![hostapdStatus2](https://github.com/user-attachments/assets/a3b2d7cb-4f9b-4fca-a00b-b7eeea2c8ef3)
 
 
-**4)** Setting up automatic startup for _**app.py**_ at device boot
+4️⃣ Setting up automatic startup for _**app.py**_ at device boot
 ```console
 veinfinder@veinfinder:~$ sudo nano /etc/rc.local
 ```
@@ -420,7 +421,7 @@ sudo python3 /home/veinfinder/Desktop/Veinfinder/app.py &
 ```
 ![rclocal2](https://github.com/user-attachments/assets/f5397edf-acf6-47d1-87d5-9f204c1c0271)
 
-**5)** For better performance, you can disable Bluetooth and enable console mode
+5️⃣ For better performance, you can disable Bluetooth and enable console mode
 
 *Disabling Bluetooth*
 ```console
@@ -444,17 +445,10 @@ _*"System Options -> Boot / Auto Login Select boot... -> Console Autologin..."*_
 ![raspiconfig2](https://github.com/user-attachments/assets/4fd2fa95-dcb5-454a-a008-00765b29e31f)
 ![raspiconfig3](https://github.com/user-attachments/assets/e6f04bad-6b5e-4bc2-b5cc-6d20fed2e34d)
 ![raspiconfig4](https://github.com/user-attachments/assets/fbb8b272-0c7b-4fd4-95ad-99a471cfa3b2)
-**READY!**
 
-### Usage
+✅ **READY!**
+
+### ▶️ Usage
 To turn on the device, press the **ON/OFF** button. <br>
 To turn off the device, press the **ON/OFF** button twice. <br>
 The device can be charged using USB TYPE C (Fast charging supported).  _(The five LED indicators show the battery level and charging status)_
-
-   
-   
-
-   
-   
-
-
